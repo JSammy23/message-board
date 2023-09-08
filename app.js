@@ -3,6 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var expressLayouts = require('express-ejs-layouts');
+require('dotenv').config();
+const mongoose = require("mongoose");
+
+mongoose.set("strictQuery", false);
+const mongoDB = process.env.MONGODB_URL;
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+};
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -10,6 +21,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // view engine setup
+app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
