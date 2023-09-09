@@ -7,6 +7,7 @@ var expressLayouts = require('express-ejs-layouts');
 const bcrypt = require('bcryptjs');
 const flash = require('connect-flash');
 const passport = require('passport');
+const initializePassport = require('./config/passport');
 const session = require("express-session");
 require('dotenv').config();
 const mongoose = require("mongoose");
@@ -20,7 +21,7 @@ async function main() {
 };
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/usersRouter');
 
 var app = express();
 
@@ -34,6 +35,12 @@ app.use(express.json());
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+initializePassport();
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
+app.use(flash());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
