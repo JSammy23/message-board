@@ -2,3 +2,30 @@
 
 <h3>Welcome to the Hub</h3>
 <p>All messages are avalable to be read below, however our members only can create messages and see who the authors are.</p>
+
+<div class="container mt-5">
+    <% if (messages) { %>
+        <% messages.forEach(message => { %>
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <!-- Message title -->
+                    <strong class="text-uppercase"><%= message.title %></strong>
+                    
+                    <!-- Timestamp -->
+                    <small class="text-muted"><%= message.timestamp %></small>
+                </div>
+                <div class="card-body">
+                    <!-- Message body -->
+                    <p class="card-text">
+                        <%= message.body %>
+                    </p>
+                    
+                    <!-- Author name -->
+                    <% if (currentUser) { %>
+                        <footer class="blockquote-footer">Posted by <cite title="<%= message.author.name %>"><%= message.author.username %></cite></footer>
+                        <% } %>
+                </div>
+            </div>
+        <% }) %>
+    <% } %>
+</div>
