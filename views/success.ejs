@@ -1,0 +1,9 @@
+<h1>Success!</h1>
+<p>You've joined the Hub! You will be redirected home shortly.</p>
+<p><strong>Membership Status: <%= membership %></strong></p>
+
+<script>
+    setTimeout(() => {
+        window.location.href = '/';
+    }, 5000); // Redirects after 5 seconds
+</script>
