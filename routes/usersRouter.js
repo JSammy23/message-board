@@ -14,11 +14,11 @@ router.get('/sign-up', userController.user_create_get);
 // Sign up POST
 router.post('/sign-up', userController.user_create_post);
 
-// Login GET
-router.get('/login', userController.login_get)
-
 // POST Login
 router.post('/login', userController.login_post);
+
+// GET logout
+router.get('/log-out', userController.logout);
 
 // Membership routes
 router.get('/:id/membership', userController.membership_get);

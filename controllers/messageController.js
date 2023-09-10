@@ -2,12 +2,6 @@ const Message = require('../models/message');
 const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
-/// Message route functions
-// list all message
-// create message
-// update message
-// delete message
-// message detail?
 
 exports.index = asyncHandler(async (req, res, next) => {
     const allMessages = await Message.find({}).populate('author').exec()

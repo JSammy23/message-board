@@ -4,16 +4,6 @@ const passport = require('passport');
 const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 
-// Routes needed:
-// Create User
-// Update User
-// Delete User
-// User Detail
-// Sign up
-// Login
-// Logout
-// membership status
-
 exports.user_create_get = asyncHandler(async (req, res, next) => {
     res.render('sign-up', {
         title: 'Sign-Up',
@@ -83,17 +73,20 @@ exports.user_create_post = [
     })
 ];
 
-exports.login_get = asyncHandler(async (req, res, next) => {
-    res.render('login', {
-        title: "Login"
-    });
-});
-
 exports.login_post = passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/',
     failureFlash: true
 });
+
+exports.logout = (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
+};
 
 exports.membership_get = asyncHandler(async (req, res, next) => {
     res.render('membership_form', {
