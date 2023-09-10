@@ -30,6 +30,7 @@
                 <hr>
                 <% if (currentUser) {%>
                     <p><strong>Welcome Back <%= currentUser.username %></strong></p>
+                    <p><a href="/users/log-out">Logout</a></p>
                     <% } else { %>
                         <form action="/users/login" method="post">
                             <div class="form-group">
@@ -44,11 +45,11 @@
                                 <button type="submit" class="btn btn-primary" >Submit</button>
                             </div>
                         </form>
-                        <% if (locals.error) { %>
+                        <% } %>
+                        <% if (error && error.length > 0) { %>
                             <div class="alert alert-danger">
-                                <%= error %>
+                                <%= error[0] %>
                             </div>
-                          <% } %>
                         <% } %>
             </div>
             <!-- Main content -->

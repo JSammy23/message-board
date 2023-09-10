@@ -23,3 +23,11 @@
 <% } else { %>
     <p>The area is reserved for site users who want exclusive membership to the Hub. First sign up <a href="/users/sign-up">here</a> before trying to join the club.</p>
 <% } %>
+
+<% if (errors) { %>
+    <ul>
+      <% errors.forEach(function(error) { %>
+        <li><%= error.msg %></li>
+      <% }); %>
+    </ul>
+  <% } %>

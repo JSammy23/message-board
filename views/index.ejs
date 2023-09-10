@@ -21,7 +21,7 @@
                     </p>
                     
                     <!-- Author name -->
-                    <% if (currentUser) { %>
+                    <% if (currentUser && currentUser.membership_status === 'member' || currentUser && currentUser.membership_status === 'admin') { %>
                         <footer class="blockquote-footer">Posted by <cite title="<%= message.author.name %>"><%= message.author.username %></cite></footer>
                         <% } %>
                     <!-- Delete Link for Admins -->
