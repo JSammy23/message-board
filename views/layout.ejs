@@ -16,14 +16,19 @@
             <div class="col-sm-2 sticky-sidebar">
                 <ul class="sidebar-nav" >
                     <li><a href="/">Home</a></li>
-                    <li><a href="#">Club Members</a></li>
-                    <li><a href="#">Admins</a></li>
+                    <% if (currentUser) { %>
+                        <li><a href="/users/<%= currentUser._id %>/membership">Club Members</a></li>
+                        <li><a href="#">Admins</a></li>
+                        <% } %>
                     <hr>
-                    <li><a href="/users/login">Login</a></li>
-                    <li><a href="/users/sign-up">Sign-up</a></li>
+                    <% if (!currentUser) { %>
+                        <li><a href="/users/sign-up">Sign-up</a></li>
+                        <% } else { %>
+                            <li><a href="/messages/create">Compose Message</a></li>
+                            <% } %>
                 </ul>
                 <% if (currentUser) {%>
-                    <h3>Welcome Back <%= currentUser.username %></h3>
+                    <p><strong>Welcome Back <%= currentUser.username %></strong></p>
                     <% } else { %>
                         <form action="/users/login" method="post">
                             <div class="form-group">
