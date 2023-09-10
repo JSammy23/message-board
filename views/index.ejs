@@ -24,6 +24,10 @@
                     <% if (currentUser) { %>
                         <footer class="blockquote-footer">Posted by <cite title="<%= message.author.name %>"><%= message.author.username %></cite></footer>
                         <% } %>
+                    <!-- Delete Link for Admins -->
+                    <% if (currentUser && currentUser.membership_status === 'admin') { %>
+                        <a href="/messages/<%= message._id %>/delete" class="btn btn-danger btn-sm ml-2">Delete</a>
+                    <% } %>
                 </div>
             </div>
         <% }) %>
