@@ -20,12 +20,9 @@ router.get('/login', userController.login_get)
 // POST Login
 router.post('/login', userController.login_post);
 
-router.get('/login-failure', (req, res) => {
-  res.send('Login failed!')
-});
+// Membership routes
+router.get('/:id/membership', userController.membership_get);
 
-router.get('/login-success', (req, res) => {
-  res.send('Login successful!')
-});
+router.post('/:id/membership', userController.membership_post);
 
 module.exports = router;

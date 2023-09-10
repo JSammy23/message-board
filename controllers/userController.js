@@ -94,3 +94,41 @@ exports.login_post = passport.authenticate('local', {
     failureRedirect: '/',
     failureFlash: true
 });
+
+exports.membership_get = asyncHandler(async (req, res, next) => {
+    res.render('membership_form', {
+        title: 'Join the Club',
+        errors: []
+    });
+});
+
+exports.membership_post = [
+    body('password', 'Password Required')
+        .isLength({min: 1, max: 100}),
+    
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            // Re-render the form with validation error messages
+            return res.render('membership_form', {
+                title: 'Join the Club',
+                errors: errors.array()
+            });
+        }
+
+        if (req.body.password !== 'Bananapudding') {
+            return res.render('membership_form', {
+                title: 'Join the Club',
+                errors: ['Incorrect Password!']
+            });
+        }
+
+        await User.findByIdAndUpdate(req.user._id, { membership_status: 'member' });
+
+        res.render('success', {
+            membership: 'Member'
+        });
+    })
+]
+
