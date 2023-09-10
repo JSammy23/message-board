@@ -32,8 +32,7 @@ exports.create_post = [
         .escape(),
     body('body', 'Message body is required')
         .trim()
-        .isLength({min: 8, max: 12000})
-        .escape(),
+        .isLength({min: 8, max: 12000}),
 
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
@@ -60,9 +59,24 @@ exports.create_post = [
 ];
 
 exports.delete_get = asyncHandler(async (req, res, next) => {
-    res.send('Not Implemented: Delete Message GET');
+    const message = await Message.findById(req.params.id).populate('author');
+    res.render('message_delete', {
+        title: 'Delete Message',
+        message: message,
+        errors: []
+    })
 });
 
 exports.delete_post = asyncHandler(async (req, res, next) => {
-    res.send('Not Implemented: Delete Message POST');
+    const message = await Message.findById(req.params.id).populate('author');
+    if (req.user.membership_status !== 'admin'){
+        return res.render('message_delete', {
+            title: 'Delete Message',
+            message: message,
+            errors: ['Only admins have the right to delete messages']
+        });
+    }
+
+    await Message.findByIdAndRemove(req.body.messageid);
+    res.redirect('/');
 });
