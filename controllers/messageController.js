@@ -9,6 +9,14 @@ const asyncHandler = require('express-async-handler');
 // delete message
 // message detail?
 
+exports.index = asyncHandler(async (req, res, next) => {
+    const allMessages = await Message.find({}).populate('author').exec()
+    res.render('index', {
+    title: 'The Hub',
+    messages: allMessages
+  });
+})
+
 exports.create_get = asyncHandler(async (req, res, next) => {
     res.render('message_form', {
         title: 'Compose Message',
