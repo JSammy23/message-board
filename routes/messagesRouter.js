@@ -3,6 +3,8 @@ var router = express.Router();
 
 const messageController = require('../controllers/messageController');
 
+router.get('/', messageController.index);
+
 router.get('/compose', messageController.create_get);
 
 router.post('/compose', messageController.create_post);
