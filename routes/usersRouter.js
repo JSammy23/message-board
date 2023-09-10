@@ -25,4 +25,8 @@ router.get('/:id/membership', userController.membership_get);
 
 router.post('/:id/membership', userController.membership_post);
 
+router.get('/:id/admin', userController.admin_get);
+
+router.post('/:id/admin', userController.admin_post);
+
 module.exports = router;

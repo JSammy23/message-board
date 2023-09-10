@@ -18,15 +18,16 @@
                     <li><a href="/">Home</a></li>
                     <% if (currentUser) { %>
                         <li><a href="/users/<%= currentUser._id %>/membership">Club Members</a></li>
-                        <li><a href="#">Admins</a></li>
+                        <li><a href="users/<%= currentUser._id %>/admin">Admins</a></li>
                         <% } %>
                     <hr>
                     <% if (!currentUser) { %>
                         <li><a href="/users/sign-up">Sign-up</a></li>
                         <% } else { %>
-                            <li><a href="/messages/create">Compose Message</a></li>
+                            <li><a href="/messages/compose">Compose Message</a></li>
                             <% } %>
                 </ul>
+                <hr>
                 <% if (currentUser) {%>
                     <p><strong>Welcome Back <%= currentUser.username %></strong></p>
                     <% } else { %>

@@ -132,3 +132,40 @@ exports.membership_post = [
     })
 ]
 
+exports.admin_get = asyncHandler(async (req, res, next) => {
+    res.render('admin_form', {
+        title: 'Become a Hub Admin',
+        errors: []
+    })
+});
+
+exports.admin_post = [
+    body('password', 'Password required')
+        .trim()
+        .isLength({min: 1, max: 100}),
+    
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            // Re-render the form with validation error messages
+            return res.render('admin_form', {
+                title: 'Become a Hub Admin',
+                errors: errors.array()
+            });
+        }
+
+        if (req.body.password !== 'Pineapples') {
+            return res.render('membership_form', {
+                title: 'Become a Hub Admin',
+                errors: ['Incorrect Password!']
+            });
+        }
+
+        await User.findByIdAndUpdate(req.user._id, { membership_status: 'admin' });
+
+        res.render('success', {
+            membership: 'Admin'
+        });
+    })
+]
