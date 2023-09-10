@@ -18,7 +18,7 @@
                     <li><a href="/">Home</a></li>
                     <% if (currentUser) { %>
                         <li><a href="/users/<%= currentUser._id %>/membership">Club Members</a></li>
-                        <li><a href="users/<%= currentUser._id %>/admin">Admins</a></li>
+                        <li><a href="/users/<%= currentUser._id %>/admin">Admins</a></li>
                         <% } %>
                     <hr>
                     <% if (!currentUser) { %>
